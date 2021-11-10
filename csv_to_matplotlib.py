@@ -69,14 +69,20 @@ class QtLab(QMainWindow):
     def titleGraphF(self):
         global title
         title = self.titleGraph.text()
+        self.MplWidget.canvas.axes.set_title(title)
+        self.MplWidget.canvas.draw()
 
     def xlabelGraphF(self):
         global xLabel
         xLabel = self.xlabelGraph.text()
+        self.MplWidget.canvas.axes.set_xlabel(xLabel)
+        self.MplWidget.canvas.draw()
 
     def ylabelGraphF(self):
         global yLabel
         yLabel = self.ylabelGraph.text()
+        self.MplWidget.canvas.axes.set_ylabel(yLabel)
+        self.MplWidget.canvas.draw()
 
     def loadCSVF(self):
         global ANOTATED,ANOTATED_LIST, xData, yData, xLabel, yLabel, title

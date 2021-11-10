@@ -66,9 +66,9 @@
    <widget class="QLineEdit" name="titleGraph">
     <property name="geometry">
      <rect>
-      <x>40</x>
+      <x>25</x>
       <y>180</y>
-      <width>150</width>
+      <width>75</width>
       <height>30</height>
      </rect>
     </property>
@@ -76,9 +76,9 @@
    <widget class="QLineEdit" name="xlabelGraph">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>255</y>
-      <width>150</width>
+      <x>25</x>
+      <y>225</y>
+      <width>75</width>
       <height>30</height>
      </rect>
     </property>
@@ -86,9 +86,9 @@
    <widget class="QLineEdit" name="ylabelGraph">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>330</y>
-      <width>150</width>
+      <x>25</x>
+      <y>270</y>
+      <width>75</width>
       <height>30</height>
      </rect>
     </property>
