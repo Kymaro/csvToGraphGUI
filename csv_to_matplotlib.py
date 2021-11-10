@@ -21,6 +21,7 @@ class QtLab(QMainWindow):
         self.setWindowTitle("CSV to graph")
         self.loadCSV.clicked.connect(self.loadCSVF)
         self.anotate.clicked.connect(self.anotateF)
+        self.anotateMax.clicked.connect(self.anotateMaxF)
         self.listX.itemDoubleClicked.connect(self.listXF)
         self.titleGraph.returnPressed.connect(self.titleGraphF)
         self.xlabelGraph.returnPressed.connect(self.xlabelGraphF)
@@ -32,6 +33,38 @@ class QtLab(QMainWindow):
         self.titleGraph.setText(title)
         self.xlabelGraph.setText(xLabel)
         self.ylabelGraph.setText(yLabel)
+
+    def anotateMaxF(self):
+        global xData, yData, ANOTATED, ANOTATED_LIST
+        max_index = yData.index(max(yData)) # What if multiple time the max ? (see with numpy how to)
+        if xData[max_index] in ANOTATED:
+            print(ANOTATED)
+            n = ANOTATED.index(xData[max_index])
+            ANOTATED_LIST[n].remove()
+            ANOTATED.pop(n)
+            ANOTATED_LIST.pop(n)
+        else:
+            ANOTATED.append(xData[max_index])
+            labelxy = (xData[max_index], yData[max_index])
+            ann = self.MplWidget.canvas.axes.annotate("({}, {})".format(xData[max_index], yData[max_index]),
+                                                      xy=labelxy,
+                                                      xycoords='data',
+                                                      xytext=(self.MplWidget.get_X(), self.MplWidget.get_Y()),
+                                                      textcoords='data',
+                                                      size=10,
+                                                      va="center",
+                                                      ha="center",
+                                                      color="red",
+                                                      fontsize=10,
+                                                      arrowprops=dict(arrowstyle="->",
+                                                                      connectionstyle="arc3",
+                                                                      color="red"),
+                                                      )
+            ANOTATED_LIST.append(ann)
+
+        self.MplWidget.canvas.draw()
+
+
 
     def titleGraphF(self):
         global title
@@ -98,7 +131,8 @@ class QtLab(QMainWindow):
                                                       color="red",
                                                       fontsize=10,
                                                       arrowprops=dict(arrowstyle="->",
-                                                                      connectionstyle="arc3"),
+                                                                      connectionstyle="arc3",
+                                                                      color="red"),
                                                       )
             ANOTATED_LIST.append(ann)
 
