@@ -1,13 +1,6 @@
-import csv
-import matplotlib.pyplot as plt
-import time
-import numpy as np
 import pandas as pd
-
-from PyQt5.QtCore import QObject, pyqtSignal, QThread
 from PyQt5.QtWidgets import *
 from PyQt5.uic import loadUi
-
 from matplotlib.backends.backend_qt5agg import (NavigationToolbar2QT as NavigationToolbar)
 
 COLUMNS = ['X', 'Y']
@@ -19,6 +12,7 @@ title = "title here"
 
 xData = []
 yData = []
+
 
 class QtLab(QMainWindow):
     def __init__(self):
@@ -79,7 +73,6 @@ class QtLab(QMainWindow):
             x.remove()
         ANOTATED = []
         ANOTATED_LIST = []
-        self.MplWidget.canvas.draw()
 
     def listXF(self, item):
         global ANOTATED, ANOTATED_LIST, xData, yData
@@ -96,8 +89,17 @@ class QtLab(QMainWindow):
             labelxy = (clicked, yData[n])
             ann = self.MplWidget.canvas.axes.annotate("({}, {})".format(clicked, yData[n]),
                                                       xy=labelxy,
+                                                      xycoords='data',
+                                                      xytext=(self.MplWidget.get_X(),self.MplWidget.get_Y()),
+                                                      textcoords='data',
+                                                      size=10,
+                                                      va="center",
+                                                      ha="center",
                                                       color="red",
-                                                      fontsize=12)
+                                                      fontsize=10,
+                                                      arrowprops=dict(arrowstyle="->",
+                                                                      connectionstyle="arc3"),
+                                                      )
             ANOTATED_LIST.append(ann)
 
         self.MplWidget.canvas.draw()
